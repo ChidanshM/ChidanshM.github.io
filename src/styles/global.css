@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* Force light mode always */
+html {
+  color-scheme: light;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: white;
+  color: #111827;
+}
+
+/* Keep monospace only for code elements */
+code, kbd, pre, .font-mono {
+  font-family: 'IBM Plex Mono', monospace;
+}

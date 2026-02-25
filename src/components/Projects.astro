@@ -1,0 +1,76 @@
+---
+import { siteConfig } from "../config";
+const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
+const accent = siteConfig.accentColor;
+---
+
+{
+  hasProjects && (
+    <section id="projects" class="p-8 sm:p-12 md:p-16 lg:p-24">
+      <div>
+        <!-- Section heading -->
+        <div class="mb-10">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold text-gray-900">
+            Projects
+          </h2>
+          <div
+            class="w-[75px] h-[5px] mt-2 rounded-full"
+            style={`background-color: ${accent}`}
+          />
+        </div>
+
+        <!-- Grid tiles -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem;">
+          {siteConfig.projects.map((project, index) => {
+            const Component = project.link ? "a" : "div";
+            const linkProps = project.link
+              ? { href: project.link, target: "_blank", rel: "noopener noreferrer" }
+              : {};
+
+            return (
+              <div class="group relative">
+                <Component
+                  {...linkProps}
+                  class={`flex flex-col h-full p-5 sm:p-6 bg-gray-50 rounded-2xl border border-gray-200 transition-all duration-300 ${
+                    project.link ? "hover:bg-white hover:shadow-lg hover:border-gray-300 hover:-translate-y-1" : ""
+                  }`}
+                >
+                  <div class="flex items-start justify-between mb-3">
+                    <span class="text-xs font-mono font-semibold" style={`color: ${accent}`}>
+                      0{index + 1}
+                    </span>
+                    {project.link && (
+                      <div class="w-8 h-8 flex items-center justify-center bg-gray-900 rounded-full text-white transition-all duration-300 group-hover:bg-gray-700 shrink-0">
+                        <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+
+                  <h3 class="text-base sm:text-lg font-bold mb-2 leading-snug" style={`color: ${accent}`}>
+                    {project.name}
+                  </h3>
+
+                  <p class="text-sm text-gray-600 leading-relaxed flex-1 mb-4">
+                    {project.description}
+                  </p>
+
+                  {project.skills && project.skills.length > 0 && (
+                    <div class="flex flex-wrap gap-1.5 mt-auto">
+                      {project.skills.map((skill) => (
+                        <span class="px-2 py-1 bg-gray-200 text-gray-700 rounded-md text-xs font-medium">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </Component>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
